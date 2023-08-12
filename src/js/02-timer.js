@@ -10,6 +10,7 @@ const mainObject = {
 };
 
 const startButton = document.querySelector('[data-start]');
+const inputEl = document.querySelector('[datetime-picker]')
 startButton.disabled = true;
 
 let isActive = false;
@@ -23,11 +24,8 @@ flatpickr('#datetime-picker', {
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onClose(selectedDates) {
-    const date = new Date(selectedDates[0]);
-    newTime = date.getTime();
-
-    if (realTime >= newTime) {
+    onClose({selectedDates}) {
+    if (selectedDates > Date.now()) {
       Notify.failure('Вы указали не точную дату!');
       startButton.disabled = true;
       clearInterval(id);
@@ -42,21 +40,22 @@ startButton.addEventListener('click', onCounter);
 function onCounter() {
   id = setInterval(() => {
     const realTime = Date.now();
-    const timeLeft = newTime - realTime;
+    const timeLeft = new Date(inputEl) - realTime;
     const timeComp = convertMs(timeLeft);
     const { days, hours, minutes, seconds } = timeComp;
-    function updateClockFace({ days, hours, minutes, seconds }) {
-      mainObject.days.textContent = `${days}`;
-      mainObject.hours.textContent = `${hours}`;
-      mainObject.minutes.textContent = `${minutes}`;
-      mainObject.seconds.textContent = `${seconds}`;
-    }
     updateClockFace({ days, hours, minutes, seconds });
 
     if (timeLeft < 1000) {
       clearInterval(id);
     }
   }, 1000);
+}
+
+function updateClockFace({ days, hours, minutes, seconds }) {
+  mainObject.days.textContent = `${days}`;
+  mainObject.hours.textContent = `${hours}`;
+  mainObject.minutes.textContent = `${minutes}`;
+  mainObject.seconds.textContent = `${seconds}`;
 }
 
 function addLeadingZero(value) {

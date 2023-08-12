@@ -38,5 +38,3 @@ Notify.init({
   width: '300px',
   fontSize: '18px',
 });
-
-// git commint
