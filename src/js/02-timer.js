@@ -24,8 +24,8 @@ flatpickr('#datetime-picker', {
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onClose({selectedDates}) {
-    if (selectedDates > Date.now()) {
+    onClose([selectedDates]) {
+    if (selectedDates > realTime) {
       Notify.failure('Вы указали не точную дату!');
       startButton.disabled = true;
       clearInterval(id);
