@@ -17,18 +17,15 @@ let isActive = false;
 let newTime = null;
 let id = null;
 
-const realTime = Date.now();
-
 flatpickr('#datetime-picker', {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onClose([selectedDates]) {
-    if (selectedDates > realTime) {
+    onClose(selectedDates) {
+    if (selectedDates[0].getTime() < Date.now()) {
       Notify.failure('Вы указали не точную дату!');
       startButton.disabled = true;
-      clearInterval(id);
     } else {
       startButton.disabled = false;
     }
