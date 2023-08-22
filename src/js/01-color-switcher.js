@@ -12,7 +12,7 @@ mainObject.stopButton.addEventListener('click', stopGenRandomClr);
   
 function generateBodyBgColor() {
     isActive(true, false)
-    let id = setInterval(() => {
+    id = setInterval(() => {
       mainObject.body.style.backgroundColor = getHexBodyClr();
     }, 1000);
 }
