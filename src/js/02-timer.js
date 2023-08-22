@@ -10,7 +10,7 @@ const mainObject = {
 };
 
 const startButton = document.querySelector('[data-start]');
-const inputEl = document.querySelector('[datetime-picker]')
+const inputEl = document.getElementById('datetime-picker');
 startButton.disabled = true;
 
 let isActive = false;
