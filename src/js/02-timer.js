@@ -37,7 +37,7 @@ startButton.addEventListener('click', onCounter);
 function onCounter() {
   id = setInterval(() => {
     const realTime = Date.now();
-    const timeLeft = new Date(inputEl) - realTime;
+    const timeLeft = new Date(inputEl.value) - realTime;
     const timeComp = convertMs(timeLeft);
     const { days, hours, minutes, seconds } = timeComp;
     updateClockFace({ days, hours, minutes, seconds });
